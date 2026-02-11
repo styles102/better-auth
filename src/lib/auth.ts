@@ -3,6 +3,7 @@ import * as schema from "@/db/auth-schema";
 import { sendEmail } from "@/lib/email";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { twoFactor } from "better-auth/plugins";
 
 export const auth = betterAuth({
 	database: drizzleAdapter(db, {
@@ -28,5 +29,8 @@ export const auth = betterAuth({
 				text: `Click the link to verify your email: ${url}`
 			})
 		}
-	}
+	},
+	plugins: [
+		twoFactor()
+	]
 });
