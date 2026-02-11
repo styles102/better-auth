@@ -34,6 +34,11 @@ A modern, full-stack authentication starter built with Next.js, featuring email/
 - ✅ Email/password authentication
 - ✅ Email verification
 - ✅ Password reset functionality
+- ✅ **Two-Factor Authentication (2FA/OTP)**
+  - TOTP-based authentication (Google Authenticator, Authy, etc.)
+  - QR code generation for easy setup
+  - Backup codes for account recovery
+  - Secure verification flow
 - ✅ Protected routes
 - ✅ Type-safe forms with validation
 - ✅ Dark mode support
@@ -184,7 +189,49 @@ npm run lint         # Run ESLint
 2. **Email Verification** - Verification email sent to user
 3. **Sign In** - Users authenticate with verified credentials
 4. **Password Reset** - Users can request password reset via email
-5. **Protected Routes** - Dashboard and other protected pages require authentication
+5. **Two-Factor Authentication (Optional)** - Enhanced security with TOTP
+6. **Protected Routes** - Dashboard and other protected pages require authentication
+
+## Two-Factor Authentication (2FA)
+
+This application includes a complete Two-Factor Authentication implementation using Time-based One-Time Passwords (TOTP).
+
+### How It Works
+
+1. **Setup Process**:
+   - Users navigate to the dashboard after signing in
+   - Click "Enable 2FA" and confirm with their password
+   - Scan the QR code with an authenticator app (Google Authenticator, Authy, 1Password, etc.)
+   - Save the provided backup codes securely
+   - Enter a 6-digit code from the authenticator app to verify setup
+
+2. **Sign-In with 2FA**:
+   - Enter email and password as usual
+   - Get redirected to the 2FA verification page
+   - Enter the 6-digit code from your authenticator app
+   - Access your account after successful verification
+
+3. **Account Recovery**:
+   - Use backup codes if you lose access to your authenticator app
+   - Each backup code can be used once
+   - Generate new backup codes after using them
+
+### Supported Authenticator Apps
+
+- Google Authenticator
+- Microsoft Authenticator
+- Authy
+- 1Password
+- Bitwarden
+- Any TOTP-compatible authenticator app
+
+### Security Features
+
+- **QR Code Setup**: Easy enrollment with any authenticator app
+- **Backup Codes**: 10 unique codes for account recovery
+- **Time-Based Codes**: Codes expire every 30 seconds
+- **Secure Storage**: All secrets are encrypted in the database
+- **Graceful Fallback**: Backup codes ensure you never lose access
 
 ## Learn More
 
