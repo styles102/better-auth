@@ -7,21 +7,33 @@ import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form-nextjs";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 
 export function VerifyTFAForm() {
+	const [useBackupCode, setUseBackupCode] = useState<boolean>(false);
 	const router = useRouter();
 
-	const form = useForm({
+	const tfaForm = useForm({
 		defaultValues: {
 			code: ""
 		},
 		onSubmit: async ({ value }) => {
 			const { code } = value;
 			try {
-				const { error } = await authClient.twoFactor.verifyTotp({
-					code
-				});
+				let error;
+				if(useBackupCode) {
+					const response = await authClient.twoFactor.verifyBackupCode({
+						code,
+						disableSession: false
+					});
+					error = response.error;
+				} else {
+					const response = await authClient.twoFactor.verifyTotp({
+						code
+					});
+					error = response.error;
+				}
 
 				if(error) {
 					throw Error(error.message ?? error.statusText, { cause: error.status });
@@ -56,7 +68,10 @@ export function VerifyTFAForm() {
 					</div>
 					<h2 className="text-2xl font-bold">Two-Factor Authentication</h2>
 					<p className="text-sm text-muted-foreground">
-						Enter the 6-digit code from your authenticator app
+						{useBackupCode ? 
+							"Enter one of your backup codes" :
+							"Enter the 6-digit code from your authenticator app"
+						}
 					</p>
 				</div>
 
@@ -64,12 +79,12 @@ export function VerifyTFAForm() {
 					onSubmit={(e) => {
 						e.preventDefault()
 						e.stopPropagation()
-						form.handleSubmit()
+						tfaForm.handleSubmit()
 					}}
 					className="flex flex-col gap-4"
 				>
 					<FieldGroup>
-						<form.Field name="code">
+						<tfaForm.Field name="code">
 							{(field) => {
 								const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 								return (
@@ -80,8 +95,8 @@ export function VerifyTFAForm() {
 											id={field.name}
 											name={field.name}
 											placeholder="000000"
-											maxLength={6}
-											autoComplete="one-time-code"
+											maxLength={!useBackupCode ? 6 : 11}
+											autoComplete={!useBackupCode ? "one-time-code" : undefined}
 											autoFocus
 											value={field.state.value}
 											onBlur={field.handleBlur}
@@ -93,7 +108,7 @@ export function VerifyTFAForm() {
 									</Field>
 								)
 							}}
-						</form.Field>
+						</tfaForm.Field>
 					</FieldGroup>
 
 					<Button type="submit">Verify</Button>
@@ -104,10 +119,7 @@ export function VerifyTFAForm() {
 					<button
 						type="button"
 						className="text-primary hover:underline font-medium"
-						onClick={() => {
-							// Handle backup code flow
-							toast.info("Use one of your backup codes instead");
-						}}
+						onClick={() => setUseBackupCode(true)}
 					>
 						Use backup code
 					</button>
