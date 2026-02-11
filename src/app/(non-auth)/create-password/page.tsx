@@ -1,10 +1,9 @@
 import { CreatePasswordForm } from "@/components/auth/CreatePasswordForm";
-import { cn } from "@/lib/utils";
 
 export default function CreatePasswordPage() {
 	return (
-		<div className={cn("place-items-center")}>
+		<div className="flex min-h-[calc(100vh-8rem)] items-center justify-center">
 			<CreatePasswordForm />
 		</div>
-	)
+	);
 }

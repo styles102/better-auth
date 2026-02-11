@@ -1,10 +1,9 @@
 import { ResetPasswordForm } from "@/components/auth/ResetPasswordForm";
-import { cn } from "@/lib/utils";
 
 export default function ResetPasswordPage() {
 	return (
-		<div className={cn("place-items-center")}>
+		<div className="flex min-h-[calc(100vh-8rem)] items-center justify-center">
 			<ResetPasswordForm />
 		</div>
-	)
+	);
 }
