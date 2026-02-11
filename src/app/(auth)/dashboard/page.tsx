@@ -1,3 +1,4 @@
+import { EnableTFAForm } from "@/components/auth/EnableTFAForm";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { unauthorized } from "next/navigation";
@@ -15,6 +16,10 @@ export default async function Dashboard() {
 		<div>
 			<h1>Welcome to the Dashboard</h1>
 			<p>Hi, {session!.user.name}</p>
+
+			{!session.user.twoFactorEnabled && (
+				<EnableTFAForm />
+			)}
 		</div>
 	)
 }
