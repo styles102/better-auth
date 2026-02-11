@@ -147,7 +147,7 @@ better-auth/
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── (auth)/            # Protected routes (dashboard)
-│   │   ├── (non-auth)/        # Public routes (login, signup)
+│   │   ├── (public)/        # Public routes (login, signup)
 │   │   └── api/auth/          # Better Auth API routes
 │   ├── components/            # React components
 │   │   ├── auth/              # Authentication forms
