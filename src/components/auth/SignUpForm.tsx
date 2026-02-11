@@ -1,11 +1,13 @@
 "use client"
 
+import { AuthCard } from "@/components/auth/AuthCard";
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { SignUpFormSchema } from "@/schema/auth";
 import { useForm } from "@tanstack/react-form-nextjs";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -44,9 +46,16 @@ export function SignUpForm() {
 	});
 
 	return (
-		<div className="flex flex-col gap-4 max-w-xl w-full">
-			<h2 className="text-2xl font-bold">Sign Up</h2>
-			<form
+		<AuthCard>
+			<div className="flex flex-col gap-6">
+				<div className="flex flex-col gap-2 text-center">
+					<h2 className="text-2xl font-bold">Create Account</h2>
+					<p className="text-sm text-muted-foreground">
+						Enter your information to get started
+					</p>
+				</div>
+
+				<form
 				onSubmit={(e) => {
 					e.preventDefault()
 					e.stopPropagation()
@@ -149,8 +158,16 @@ export function SignUpForm() {
 					</form.Field>
 				</FieldGroup>
 
-				<Button type="submit">Sign up</Button>
-			</form>
-		</div>
+				<Button type="submit">Sign Up</Button>
+				</form>
+
+				<div className="text-center text-sm text-muted-foreground">
+					Already have an account?{" "}
+					<Link href="/" className="text-primary hover:underline font-medium">
+						Sign in
+					</Link>
+				</div>
+			</div>
+		</AuthCard>
 	);
 }
