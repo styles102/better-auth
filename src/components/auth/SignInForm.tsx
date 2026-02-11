@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { signIn } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { SignInFormSchema } from "@/schema/auth";
 import { useForm } from "@tanstack/react-form-nextjs";
@@ -23,7 +23,7 @@ export function SignInForm() {
 		onSubmit: async ({ value }) => {
 			const { email, password } = value;
 			try {
-				await signIn.email({
+				await authClient.signIn.email({
 					email,
 					password,
 					callbackURL: "/dashboard",

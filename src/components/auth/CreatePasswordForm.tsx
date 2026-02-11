@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { resetPassword } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { CreatePasswordFormSchema } from "@/schema/auth";
 import { useForm } from "@tanstack/react-form-nextjs";
@@ -29,7 +29,7 @@ export function CreatePasswordForm() {
 		onSubmit: async ({ value }) => {
 			const { password } = value;
 			try {
-				const { error } = await resetPassword({
+				const { error } = await authClient.resetPassword({
 					newPassword: password,
 					token: token!
 				});

@@ -4,13 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { requestPasswordReset } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { ResetPasswordFormSchema } from "@/schema/auth";
 import { useForm } from "@tanstack/react-form-nextjs";
 import Link from "next/link";
 import { toast } from "sonner";
-import z from "zod";
 
 export function ResetPasswordForm() {
 	const form = useForm({
@@ -23,7 +22,7 @@ export function ResetPasswordForm() {
 		onSubmit: async ({ value }) => {
 			const { email } = value;
 			try {
-				await requestPasswordReset({
+				await authClient.requestPasswordReset({
 					email,
 					redirectTo: "/create-password",
 				});
