@@ -6,9 +6,12 @@ import { Input } from "@/components/ui/input";
 import { signUp } from "@/lib/auth-client";
 import { SignUpFormSchema } from "@/schema/sign-up-form";
 import { useForm } from "@tanstack/react-form-nextjs";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export function SignUpForm() {
+	const router = useRouter();
+
 	const form = useForm({
 		defaultValues: {
 			email: "",
@@ -30,6 +33,8 @@ export function SignUpForm() {
 					password,
 					callbackURL: "/dashboard"
 				});
+				
+				router.push("/email-verification");
 			}
 			catch (err) {
 				console.error(err);
@@ -143,6 +148,7 @@ export function SignUpForm() {
 						}}
 					</form.Field>
 				</FieldGroup>
+
 				<Button type="submit">Sign up</Button>
 			</form>
 		</div>
