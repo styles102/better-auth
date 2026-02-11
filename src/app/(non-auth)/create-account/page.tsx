@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/components/sign-in-form";
+import { SignUpForm } from "@/components/auth/SignUpForm";
 import { cn } from "@/lib/utils";
 
 export default function CreateAccountPage() {

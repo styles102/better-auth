@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { signUp } from "@/lib/auth-client";
 import { SignUpFormSchema } from "@/schema/sign-up-form";
 import { useForm } from "@tanstack/react-form-nextjs";
@@ -127,7 +126,7 @@ export function SignUpForm() {
 							const isInvalid =	field.state.meta.isTouched && !field.state.meta.isValid;
 							return (
 								<Field>
-									<Label htmlFor={field.name}>Confirm Password:</Label>
+									<FieldLabel htmlFor={field.name}>Confirm Password:</FieldLabel>
 									<Input
 										type="password"
 										id={field.name}
