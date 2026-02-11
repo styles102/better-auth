@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { signIn } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
-import { SignInFormSchema } from "@/schema/sign-in-form";
+import { SignInFormSchema } from "@/schema/auth";
 import { useForm } from "@tanstack/react-form-nextjs";
 import Link from "next/link";
 import { toast } from "sonner";

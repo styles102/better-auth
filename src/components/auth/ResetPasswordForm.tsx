@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { requestPasswordReset } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
+import { ResetPasswordFormSchema } from "@/schema/auth";
 import { useForm } from "@tanstack/react-form-nextjs";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -17,7 +18,7 @@ export function ResetPasswordForm() {
 			email: ""
 		},
 		validators: {
-			onSubmit: z.object({ email: z.email().min(1, "Email is required")})
+			onSubmit: ResetPasswordFormSchema
 		},
 		onSubmit: async ({ value }) => {
 			const { email } = value;

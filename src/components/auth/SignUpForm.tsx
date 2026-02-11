@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { signUp } from "@/lib/auth-client";
-import { SignUpFormSchema } from "@/schema/sign-up-form";
+import { SignUpFormSchema } from "@/schema/auth";
 import { useForm } from "@tanstack/react-form-nextjs";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
