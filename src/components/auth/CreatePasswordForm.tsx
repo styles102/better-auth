@@ -8,13 +8,14 @@ import { resetPassword } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { useForm } from "@tanstack/react-form-nextjs";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import z from "zod";
 
 export function CreatePasswordForm() {
 	const searchParams = useSearchParams();
 	const token = searchParams.get("token");
+	const router = useRouter();
 
 	const form = useForm({
 		defaultValues: {
@@ -37,10 +38,16 @@ export function CreatePasswordForm() {
 		onSubmit: async ({ value }) => {
 			const { password } = value;
 			try {
-				await resetPassword({
+				const { error } = await resetPassword({
 					newPassword: password,
-					token
+					token: token!
 				});
+
+				if(error) {
+					throw Error(error.message ?? error.statusText, { cause: error.status });
+				}
+
+				router.push("/");
 			}
 			catch (err) {
 				console.error(err);
