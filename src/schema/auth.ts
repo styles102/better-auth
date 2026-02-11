@@ -6,6 +6,10 @@ export const CreatePasswordFormSchema = z.object({
 	confirmPassword: z.string()
 });
 
+export const EnableTwoFactorAuthFormSchema = z.object({
+	password: PasswordSchema
+})
+
 export const ResetPasswordFormSchema = z.object({
 	email: EmailSchema
 })
